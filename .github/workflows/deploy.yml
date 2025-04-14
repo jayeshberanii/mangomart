@@ -115,5 +115,12 @@ jobs:
     needs: [build-frontend, build-admin, restart-backend]
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Install Dependencies & Build Mango Test
+      - name: Install PM2
+        working-directory: backend
+        run: |
+          npm install -g pm2
+
+      # Step 2: PM2 Status
       - name: PM2 Status
         run: pm2 list
