@@ -32,7 +32,7 @@ jobs:
           npm install
           npm run build
           pm2 delete frontend || true
-          pm2 start "npm run dev" --name "frontend"
+          pm2 start "npm run preview" --name "frontend"
           pm2 save
           EOF
 
@@ -57,7 +57,7 @@ jobs:
           npm install
           npm run build
           pm2 delete admin || true
-          pm2 start "npm run dev" --name "admin"
+          pm2 start "npm run preview" --name "admin"
           pm2 save
           EOF
 

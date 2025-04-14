@@ -8,7 +8,14 @@ connectDB();
 
 const app = express();
 app.use(cors({
-    origin: "http://localhost:5174", // Frontend origin (adjust as needed)
+    origin: [
+      "http://localhost:5174", 
+      "http://localhost:5173",
+      "http://69.62.84.37:5173",
+      "http://69.62.84.37:5174",
+      "http://69.62.84.37:4173",
+      "http://69.62.84.37:4174",
+    ], // Frontend origin (adjust as needed)
     credentials: true,               // Allow cookies to be sent with requests
   }));
 app.use(express.json());
@@ -17,8 +24,6 @@ app.use(express.json());
 app.use("/api/v1/admin", require("./routes/adminRoutes"));
 app.use("/api/v1/products", require("./routes/productRoutes"));
 app.use("/api/v1/orders", require("./routes/orderRoutes"));
-// console.log("Routes loaded");
-
 
 // Default route
 app.get("/", (req, res) => {
