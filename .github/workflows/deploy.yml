@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-frontend:
+  deploy-frontend:
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -19,33 +19,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Step 2: Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      # Step 3: Install Dependencies & Build Frontend
-      - name: Build Frontend
-        working-directory: frontend
+      # Step 2: Deploy to Hostinger
+      - name: Deploy Frontend
         run: |
-          npm install
+          sudo apt install sshpass
+          sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
+          cd /mangomart/frontend
+          git pull origin main
+          npm install && npm install -g pm2
           npm run build
-      
-      # Step 4: Install Dependencies & Build Mango Test
-      - name: Install PM2
-        working-directory: frontend
-        run: |
-          npm install -g pm2
-
-      # Step 5: Start Frontend Server
-      - name: Start Frontend Server
-        run: |
           pm2 delete frontend || true
-          pm2 start npm --name "frontend" -- run preview -- cwd ./frontend
+          pm2 start npm --name "frontend" -- run preview -- cwd /
           pm2 save
+          EOF
 
-  build-admin:
+  deploy-admin:
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -53,33 +41,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Step 2: Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      # Step 3: Install Dependencies & Build Mango Test
-      - name: Build Mango Test
-        working-directory: admin
+      # Step 2: Deploy to Hostinger
+      - name: Deploy Admin
         run: |
-          npm install
+          sudo apt install sshpass
+          sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
+          cd /mangomart/admin
+          git pull origin main
+          npm install && npm install -g pm2
           npm run build
-
-      # Step 4: Install Dependencies & Build Mango Test
-      - name: Install PM2
-        working-directory: admin
-        run: |
-          npm install -g pm2
-
-      # Step 5: Start Admin Server
-      - name: Start Admin Server
-        run: |
           pm2 delete admin || true
-          pm2 start npm --name "admin" -- run preview -- cwd ./admin
+          pm2 start npm --name "admin" -- run preview -- cwd /
           pm2 save
+          EOF
 
-  restart-backend:
+  deploy-backend:
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -87,40 +63,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Step 2: Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
-      # Step 3: Install Dependencies
-      - name: Install Dependencies
-        working-directory: backend
-        run: npm install
-
-      # Step 4: Install Dependencies & Build Mango Test
-      - name: Install PM2
-        working-directory: backend
+      # Step 2: Deploy to Hostinger
+      - name: Deploy Backend
         run: |
-          npm install -g pm2
-
-      # Step 5: Restart Backend
-      - name: Restart Backend
-        run: |
+          sudo apt install sshpass
+          sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
+          cd /mangomart/backend
+          git pull origin main
+          npm install && npm install -g pm2
           pm2 delete backend || true
-          pm2 start ./backend/src/server.js --name "backend"
+          pm2 start ./src/server.js --name "backend"
           pm2 save
-
-  verify-status:
-    needs: [build-frontend, build-admin, restart-backend]
-    runs-on: ubuntu-latest
-    steps:
-      # Step 1: Install Dependencies & Build Mango Test
-      - name: Install PM2
-        working-directory: backend
-        run: |
-          npm install -g pm2
-
-      # Step 2: PM2 Status
-      - name: PM2 Status
-        run: pm2 list
+          EOF
+ 
