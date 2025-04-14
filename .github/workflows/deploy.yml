@@ -26,13 +26,13 @@ jobs:
       # Step 2: Deploy to Hostinger
       - name: Deploy Frontend
         run: |
-          sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
+          sshpass -p "${{ secrets.HOSTINGER_PASS }}" ssh -o StrictHostKeyChecking=no ${{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
           cd /mangomart/frontend
           git pull origin main
           npm install && npm install -g pm2
           npm run build
           pm2 delete frontend || true
-          pm2 start npm --name "frontend" -- run preview -- cwd /
+          pm2 start npm --name "frontend" -- run preview --cwd /mangomart/frontend
           pm2 save
           EOF
 
@@ -51,7 +51,7 @@ jobs:
       # Step 2: Deploy to Hostinger
       - name: Deploy Admin
         run: |
-          sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
+          sshpass -p "${{ secrets.HOSTINGER_PASS }}" ssh -o StrictHostKeyChecking=no ${{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
           cd /mangomart/admin
           git pull origin main
           npm install && npm install -g pm2
@@ -76,7 +76,7 @@ jobs:
       # Step 2: Deploy to Hostinger
       - name: Deploy Backend
         run: |
-          sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
+          sshpass -p "${{ secrets.HOSTINGER_PASS }}" ssh -o StrictHostKeyChecking=no ${{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
           cd /mangomart/backend
           git pull origin main
           npm install && npm install -g pm2
