@@ -36,7 +36,7 @@ jobs:
       - name: Install PM2
         working-directory: frontend
         run: |
-          npm install -g pm2-runtime
+          npm install -g pm2
 
       # Step 5: Start Frontend Server
       - name: Start Frontend Server
@@ -70,7 +70,7 @@ jobs:
       - name: Install PM2
         working-directory: admin
         run: |
-          npm install -g pm2-runtime
+          npm install -g pm2
 
       # Step 5: Start Admin Server
       - name: Start Admin Server
@@ -102,7 +102,7 @@ jobs:
       - name: Install PM2
         working-directory: backend
         run: |
-          npm install -g pm2-runtime
+          npm install -g pm2
 
       # Step 5: Restart Backend
       - name: Restart Backend
