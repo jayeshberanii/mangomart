@@ -1,0 +1,101 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'frontend/**'
+      - 'backend/**'
+      - 'mango-test/**'
+  workflow_dispatch:
+
+jobs:
+  build-frontend:
+    if: github.event_name == 'push' && contains(join(github.event.paths, '\n'), 'frontend/')
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout Code
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Step 3: Install Dependencies & Build Frontend
+      - name: Build Frontend
+        working-directory: frontend
+        run: |
+          npm install
+          npm run build
+
+      # Step 4: Start Frontend Server
+      - name: Start Frontend Server
+        run: |
+          pm2 delete frontend || true
+          pm2 start npm --name "frontend" -- run preview -- cwd ./frontend
+          pm2 save
+
+  build-mango-test:
+    if: github.event_name == 'push' && contains(join(github.event.paths, '\n'), 'mango-test/')
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout Code
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Step 3: Install Dependencies & Build Mango Test
+      - name: Build Mango Test
+        working-directory: mango-test
+        run: |
+          npm install
+          npm run build
+
+      # Step 4: Start Mango Test Server
+      - name: Start Mango Test Server
+        run: |
+          pm2 delete mango-test || true
+          pm2 start npm --name "mango-test" -- run preview -- cwd ./mango-test
+          pm2 save
+
+  restart-backend:
+    if: github.event_name == 'push' && contains(join(github.event.paths, '\n'), 'backend/')
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout Code
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Step 3: Install Dependencies
+      - name: Install Dependencies
+        working-directory: backend
+        run: npm install
+
+      # Step 4: Restart Backend
+      - name: Restart Backend
+        run: |
+          pm2 delete backend || true
+          pm2 start ./backend/src/server.js --name "backend"
+          pm2 save
+
+  verify-status:
+    needs: [build-frontend, build-mango-test, restart-backend]
+    runs-on: ubuntu-latest
+    steps:
+      - name: PM2 Status
+        run: pm2 list
