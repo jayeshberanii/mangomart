@@ -12,7 +12,7 @@ on:
 
 jobs:
   build-frontend:
-    if: contains(github.event.commits[0].modified, 'frontend/') || (github.event_name == 'workflow_dispatch')
+    if: always()
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout Code
@@ -40,7 +40,7 @@ jobs:
           pm2 save
 
   build-admin:
-    if: contains(github.event.commits[0].modified, 'admin/') || (github.event_name == 'workflow_dispatch')
+    if: always()
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout Code
@@ -68,7 +68,7 @@ jobs:
           pm2 save
 
   restart-backend:
-    if: contains(github.event.commits[0].modified, 'backend/') || (github.event_name == 'workflow_dispatch')
+    if: always()
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout Code
