@@ -20,4 +20,7 @@ export default defineConfig({
       },
     }),
   ],
+  preview: {
+    allowedHosts: ['admin.themangomart.in'],  // Add your domain here
+  },
 });

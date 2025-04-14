@@ -7,4 +7,7 @@ export default defineConfig({
     port: 5174
   },
   plugins: [react()],
+  preview: {
+    allowedHosts: ['www.themangomart.in', 'themangomart.in'],  // Add your domain here
+  },
 })
