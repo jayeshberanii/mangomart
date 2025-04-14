@@ -5,6 +5,8 @@ import Routing from "./providers/RouterProvider";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  console.log("App started");
+  
   return (
     <LayoutProvider>
       <Routing />

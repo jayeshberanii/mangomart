@@ -9,7 +9,7 @@ import Products from "./pages/products/Products";
 
 
 function App() {
-
+// console.log("App");
   return (
     <Router>
       <Suspense fallback={<Spinner />}>
