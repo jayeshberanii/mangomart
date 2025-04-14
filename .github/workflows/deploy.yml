@@ -7,7 +7,7 @@ on:
     paths:
       - 'frontend/**'
       - 'backend/**'
-      - 'mango-test/**'
+      - 'admin/**'
   workflow_dispatch:
 
 jobs:
@@ -39,8 +39,8 @@ jobs:
           pm2 start npm --name "frontend" -- run preview -- cwd ./frontend
           pm2 save
 
-  build-mango-test:
-    if: github.event_name == 'push' && contains(join(github.event.paths, '\n'), 'mango-test/')
+  build-admin:
+    if: github.event_name == 'push' && contains(join(github.event.paths, '\n'), 'admin/')
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout Code
@@ -55,16 +55,16 @@ jobs:
 
       # Step 3: Install Dependencies & Build Mango Test
       - name: Build Mango Test
-        working-directory: mango-test
+        working-directory: admin
         run: |
           npm install
           npm run build
 
-      # Step 4: Start Mango Test Server
-      - name: Start Mango Test Server
+      # Step 4: Start Admin Server
+      - name: Start Admin Server
         run: |
-          pm2 delete mango-test || true
-          pm2 start npm --name "mango-test" -- run preview -- cwd ./mango-test
+          pm2 delete admin || true
+          pm2 start npm --name "admin" -- run preview -- cwd ./admin
           pm2 save
 
   restart-backend:
@@ -94,7 +94,7 @@ jobs:
           pm2 save
 
   verify-status:
-    needs: [build-frontend, build-mango-test, restart-backend]
+    needs: [build-frontend, build-admin, restart-backend]
     runs-on: ubuntu-latest
     steps:
       - name: PM2 Status
