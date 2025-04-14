@@ -22,7 +22,6 @@ jobs:
       # Step 2: Deploy to Hostinger
       - name: Deploy Frontend
         run: |
-          sudo apt install sshpass
           sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
           cd /mangomart/frontend
           git pull origin main
@@ -44,7 +43,6 @@ jobs:
       # Step 2: Deploy to Hostinger
       - name: Deploy Admin
         run: |
-          sudo apt install sshpass
           sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
           cd /mangomart/admin
           git pull origin main
@@ -66,7 +64,6 @@ jobs:
       # Step 2: Deploy to Hostinger
       - name: Deploy Backend
         run: |
-          sudo apt install sshpass
           sshpass -p {{ secrets.HOSTINGER_PASS }} ssh -o StrictHostKeyChecking=no {{ secrets.HOSTINGER_HOST_USER }} << 'EOF'
           cd /mangomart/backend
           git pull origin main
