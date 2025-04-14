@@ -16,7 +16,6 @@ import Orders from "../pages/admin/brands/Orders";
 const Routing = () => {
   const AdminDashboard = lazy(() => import("../pages/admin/AdminDashboard"));
   const Profile = lazy(() => import("../pages/profile/Profile"));
-  const Users = lazy(() => import("../pages/admin/users/Users"));
   const Products = lazy(() => import("../pages/admin/products/Products"));
 
   return (
@@ -43,7 +42,7 @@ const Routing = () => {
             path={ROUTES.ADMIN}
             element={
               // <Protected>
-                <AdminLayout />
+              <AdminLayout />
               // </Protected>
             }
           >
@@ -51,7 +50,6 @@ const Routing = () => {
             <Route path={ROUTES.SUB_ROUTES.PRODUCTS} element={<Products />} />
             {/* <Route path={ROUTES.SUB_ROUTES.CATEGORIES} element={<Categories />} /> */}
             <Route path={ROUTES.SUB_ROUTES.ORDERS} element={<Orders />} />
-            <Route path={ROUTES.SUB_ROUTES.USERS} element={<Users />} />
           </Route>
 
           {/* Profile Route */}

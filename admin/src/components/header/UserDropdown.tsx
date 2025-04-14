@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Dropdown } from "../../ui/dropdown/Dropdown";
 import { DropdownItem } from "../../ui/dropdown/DropdownItem";
-import { signOut } from "../../services/auth.service";
 import { showToast } from "../../lib/toast";
 import { CUSTOMER_MESSAGES } from "../../constants/constant";
 import { useNavigate } from "react-router-dom";
@@ -45,9 +44,8 @@ export default function UserDropdown({
           {user?.fullName}
         </span>
         <svg
-          className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${
-            isOpen ? "rotate-180" : ""
-          }`}
+          className={`stroke-gray-500 dark:stroke-gray-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""
+            }`}
           width="18"
           height="20"
           viewBox="0 0 18 20"

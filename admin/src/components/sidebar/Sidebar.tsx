@@ -4,15 +4,12 @@ import { Link, useLocation, useNavigate } from "react-router";
 // Assume these icons are imported from an icon library
 import {
   BoxCubeIcon,
-  // CalenderIcon,
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
   ListIcon,
-  // PageIcon,
   PieChartIcon,
   PlugInIcon,
-  // TableIcon,
 } from "../../icons";
 import { useSidebar } from "../../context/SidebarContext";
 import { ROUTES } from "../../constants/routes";
@@ -155,20 +152,17 @@ const Sidebar: React.FC = () => {
     return (
       <button
         onClick={() => handleSubmenuToggle(index, menuType)}
-        className={`menu-item group ${
-          openSubmenu?.type === menuType && openSubmenu?.index === index
+        className={`menu-item group ${openSubmenu?.type === menuType && openSubmenu?.index === index
             ? "menu-item-active"
             : "menu-item-inactive"
-        } cursor-pointer ${
-          !isExpanded && !isHovered ? "lg:justify-center" : "lg:justify-start"
-        }`}
+          } cursor-pointer ${!isExpanded && !isHovered ? "lg:justify-center" : "lg:justify-start"
+          }`}
       >
         <span
-          className={`menu-item-icon-size  ${
-            openSubmenu?.type === menuType && openSubmenu?.index === index
+          className={`menu-item-icon-size  ${openSubmenu?.type === menuType && openSubmenu?.index === index
               ? "menu-item-icon-active"
               : "menu-item-icon-inactive"
-          }`}
+            }`}
         >
           {nav.icon}
         </span>
@@ -177,11 +171,10 @@ const Sidebar: React.FC = () => {
         )}
         {(isExpanded || isHovered || isMobileOpen) && (
           <ChevronDownIcon
-            className={`ml-auto w-5 h-5 transition-transform duration-200 ${
-              openSubmenu?.type === menuType && openSubmenu?.index === index
+            className={`ml-auto w-5 h-5 transition-transform duration-200 ${openSubmenu?.type === menuType && openSubmenu?.index === index
                 ? "rotate-180 text-brand-500"
                 : ""
-            }`}
+              }`}
           />
         )}
       </button>
@@ -211,32 +204,29 @@ const Sidebar: React.FC = () => {
             <li key={subItem.name}>
               <Link
                 to={subItem.path}
-                className={`menu-dropdown-item ${
-                  isActive(subItem.path)
+                className={`menu-dropdown-item ${isActive(subItem.path)
                     ? "menu-dropdown-item-active"
                     : "menu-dropdown-item-inactive"
-                }`}
+                  }`}
               >
                 {subItem.name}
                 <span className="flex items-center gap-1 ml-auto">
                   {subItem.new && (
                     <span
-                      className={`ml-auto ${
-                        isActive(subItem.path)
+                      className={`ml-auto ${isActive(subItem.path)
                           ? "menu-dropdown-badge-active"
                           : "menu-dropdown-badge-inactive"
-                      } menu-dropdown-badge`}
+                        } menu-dropdown-badge`}
                     >
                       new
                     </span>
                   )}
                   {subItem.pro && (
                     <span
-                      className={`ml-auto ${
-                        isActive(subItem.path)
+                      className={`ml-auto ${isActive(subItem.path)
                           ? "menu-dropdown-badge-active"
                           : "menu-dropdown-badge-inactive"
-                      } menu-dropdown-badge`}
+                        } menu-dropdown-badge`}
                     >
                       pro
                     </span>
@@ -257,28 +247,26 @@ const Sidebar: React.FC = () => {
           {nav.subItems
             ? renderLgSubItems(nav, index, menuType)
             : nav.path && (
-                <Link
-                  to={nav.path}
-                  className={`menu-item group ${
-                    isActive(nav.path)
-                      ? "menu-item-active"
-                      : "menu-item-inactive"
+              <Link
+                to={nav.path}
+                className={`menu-item group ${isActive(nav.path)
+                    ? "menu-item-active"
+                    : "menu-item-inactive"
                   }`}
-                >
-                  <span
-                    className={`menu-item-icon-size ${
-                      isActive(nav.path)
-                        ? "menu-item-icon-active"
-                        : "menu-item-icon-inactive"
+              >
+                <span
+                  className={`menu-item-icon-size ${isActive(nav.path)
+                      ? "menu-item-icon-active"
+                      : "menu-item-icon-inactive"
                     }`}
-                  >
-                    {nav.icon}
-                  </span>
-                  {(isExpanded || isHovered || isMobileOpen) && (
-                    <span className="menu-item-text">{nav.name}</span>
-                  )}
-                </Link>
-              )}
+                >
+                  {nav.icon}
+                </span>
+                {(isExpanded || isHovered || isMobileOpen) && (
+                  <span className="menu-item-text">{nav.name}</span>
+                )}
+              </Link>
+            )}
           {nav.subItems &&
             (isExpanded || isHovered || isMobileOpen) &&
             renderSmSubItems(nav, index, menuType)}
@@ -305,9 +293,8 @@ const Sidebar: React.FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`py-8 flex ${
-          !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
-        }`}
+        className={`py-8 flex ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
+          }`}
       >
         <Link to={ROUTES.ADMIN}>
           {isExpanded || isHovered || isMobileOpen ? (
@@ -352,11 +339,10 @@ const Sidebar: React.FC = () => {
           <div className="flex flex-col gap-4">
             <div>
               <h2
-                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered
+                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${!isExpanded && !isHovered
                     ? "lg:justify-center"
                     : "justify-start"
-                }`}
+                  }`}
               >
                 {isExpanded || isHovered || isMobileOpen ? (
                   "Menu"

@@ -44,7 +44,7 @@ const Products = () => {
     closeModal();
   };
   const getProducts = useCallback(async () => {
-   const response = await fetchProductsApi();
+    const response = await fetchProductsApi();
     setProducts(response);
     setTotalProducts(response?.total);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,7 +105,6 @@ const Products = () => {
             }}
             className={`flex items-center justify-center gap-2 bg-brand-50 hover:bg-brand-500 px-6 py-2 rounded-md text-brand-500 hover:text-white hover:scale-100 font-semibold transition-all ease-in-out duration-300`}
           >
-            {/* <PlusIcon className="h-5 w-5" /> */}
             <span className="text-sm">Add New Product</span>
           </button>
         </div>
