@@ -17,6 +17,7 @@ app.use(express.json());
 app.use("/api/v1/admin", require("./routes/adminRoutes"));
 app.use("/api/v1/products", require("./routes/productRoutes"));
 app.use("/api/v1/orders", require("./routes/orderRoutes"));
+// console.log("Routes loaded");
 
 
 // Default route
