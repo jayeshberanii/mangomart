@@ -305,7 +305,7 @@ const Sidebar: React.FC = () => {
                 className="dark:hidden cursor-pointer"
                 src="/images/logo/logo.png"
                 alt="Logo"
-                width={150}
+                width={70}
                 height={40}
                 onClick={() => navigate(ROUTES.HOME)}
               />
@@ -315,7 +315,7 @@ const Sidebar: React.FC = () => {
                 className="hidden dark:block cursor-pointer"
                 src="/images/logo/logo-dark.png"
                 alt="Logo"
-                width={150}
+                width={70}
                 height={40}
                 onClick={() => navigate(ROUTES.HOME)}
               />
