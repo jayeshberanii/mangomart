@@ -6,19 +6,19 @@ import { getOrdersApi } from "../../services/order.service";
 import { OrderType } from "../../types/product";
 
 export default function Metrics() {
-  const [pendingOrders, setPendingOrders] = useState(0);  
+  const [pendingOrders, setPendingOrders] = useState(0);
   const [confirmedOrders, setConfirmedOrders] = useState(0);
   const [deliveredOrders, setDeliveredOrders] = useState(0);
   const [cancelledOrders, setCancelledOrders] = useState(0);
-  useEffect(()=>{
-    getOrdersApi().then((res)=>{
-      const orders = res || [];
-      setPendingOrders(orders.filter((order:OrderType)=>order.status === "Pending").length);
-      setConfirmedOrders(orders.filter((order:OrderType)=>order.status === "Confirmed").length);
-      setDeliveredOrders(orders.filter((order:OrderType)=>order.status === "Delivered").length);
-      setCancelledOrders(orders.filter((order:OrderType)=>order.status === "Cancelled").length);
+  useEffect(() => {
+    getOrdersApi().then((res) => {
+      const orders = res?.orders || [];
+      setPendingOrders(orders.filter((order: OrderType) => order.status === "Pending").length);
+      setConfirmedOrders(orders.filter((order: OrderType) => order.status === "Confirmed").length);
+      setDeliveredOrders(orders.filter((order: OrderType) => order.status === "Delivered").length);
+      setCancelledOrders(orders.filter((order: OrderType) => order.status === "Cancelled").length);
     })
-  },[])
+  }, [])
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-6">
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
@@ -38,7 +38,7 @@ export default function Metrics() {
       </div>
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
-        <BoxIconLine className="text-gray-800 size-6 dark:text-white/90" />
+          <BoxIconLine className="text-gray-800 size-6 dark:text-white/90" />
         </div>
 
         <div className="flex items-end justify-between mt-5">

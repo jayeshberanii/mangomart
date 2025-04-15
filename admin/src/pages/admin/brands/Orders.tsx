@@ -16,6 +16,7 @@ import { showToast } from "../../../lib/toast";
 import { createOrderApi, deleteOrderApi, getOrdersApi, updateOrderApi } from "../../../services/order.service";
 import AddOrderModal from "./components/AddOrderModal";
 import { fetchProductsApi } from "../../../services/product.service";
+import { ORDER_STATUSES } from "../../../constants/constant";
 
 const Orders = () => {
     const [orders, setOrders] = useState<OrderType[]>([]);
@@ -33,32 +34,24 @@ const Orders = () => {
     const [isEditModal, setIsEditModal] = useState(false);
     const [editOrder, setEditOrder] = useState<OrderType | null>(null);
     const [products, setProducts] = useState([]);
+    const [selectedStatus, setSelectedStatus] = useState<string>("Pending");
 
 
     const getCategories = useCallback(async () => {
         const offset = (currentPage - 1) * limit;
-        const filters = {
-        };
-
-        const sorting = {
-
-        };
-
         const response = await getOrdersApi(
             limit,
             offset,
-            "",
-            filters,
-            sorting
+            selectedStatus,
         );
-        setOrders(response);
-        setTotalOrders(response.total); // Assuming API returns total count
+        setOrders(response?.orders);
+        setTotalOrders(response?.total ?? 0); // Assuming API returns total count
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchTrigger, currentPage, limit])
+    }, [fetchTrigger, currentPage, limit, selectedStatus]);
 
     useEffect(() => {
         getCategories();
-        fetchProductsApi().then((res) => setProducts(res));
+        fetchProductsApi().then((res) => setProducts(res?.products ?? []));
     }, [getCategories]);
 
     const totalPages = Math.ceil(totalOrders / limit);
@@ -138,6 +131,23 @@ const Orders = () => {
                 <ComponentCard
                     title="Orders"
                 >
+                    <div className="flex flex-wrap justify-end items-center gap-2">
+                        <div className="font-semibold">Status: </div>
+                        <div className="flex flex-wrap gap-2">
+                            <select
+                                className="p-2 bg-brand-50 border-0 outline-0 rounded-md text-brand-500 text-sm font-semibold"
+                                value={selectedStatus}
+                                onChange={(e) => setSelectedStatus(e.target.value)}
+                            >
+                                <option value="">All</option>
+                                {ORDER_STATUSES.map((item, key) => (
+                                    <option key={key + 1} value={item}>
+                                        {item}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                     <div className="overflow-hidden rounded-xl bproduct bproduct-gray-200 bg-white dark:bproduct-white/[0.05] dark:bg-white/[0.03]">
                         <div className="max-w-full overflow-x-auto">
                             <div className="min-w-[1102px]">
@@ -225,7 +235,17 @@ const Orders = () => {
                                                     {order?.address}
                                                 </TableCell>
                                                 <TableCell className="px-5 py-4 max-w-[300px] sm:px-6 text-start">
-                                                    {order?.status}
+                                                    <select
+                                                        className="p-2 bg-brand-50 border-0 outline-0 rounded-md text-brand-500 text-sm font-semibold"
+                                                        value={order?.status ?? "Pending"}
+                                                        onChange={(e) => onSubmitOrderHandler({ ...order, status: e.target.value as "Pending" | "Delivered" | "Cancelled" | "Shipped" | "Confirmed" })}
+                                                    >
+                                                        {ORDER_STATUSES.map((item, key) => (
+                                                            <option key={key + 1} value={item}>
+                                                                {item}
+                                                            </option>
+                                                        ))}
+                                                    </select>
                                                 </TableCell>
                                                 <TableCell className="px-5 py-4 max-w-[300px] sm:px-6 text-start">
                                                     {order?.createdAt ? new Date(order?.createdAt).toLocaleString() : ""}

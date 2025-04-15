@@ -22,3 +22,5 @@ export interface OrderType {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export type OrderStatus = "Pending" | "Confirmed" | "Shipped" | "Delivered" | "Cancelled";

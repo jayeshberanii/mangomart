@@ -4,9 +4,13 @@ import { showToast } from "../lib/toast";
 import { ProductType } from "../types/product";
 
 export const fetchProductsApi = async (
+  page?: number,
+  limit?: number
 ) => {
   try {
-    const response = await apiClient.get(PRODUCT_ROUTES.GET_PRODUCTS);
+    const response = await apiClient.get(PRODUCT_ROUTES.GET_PRODUCTS, {
+      params: { page, limit },
+    });
     return response.data;
   } catch (error: unknown) {
     const errorMsg = errorHandler(error);

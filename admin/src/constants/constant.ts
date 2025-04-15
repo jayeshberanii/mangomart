@@ -1,5 +1,7 @@
 export const BASE_URL = "/api/v1";
 
+export const ORDER_STATUSES = ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"];
+
 export const CUSTOMER_MESSAGES = {
   ACCESS_TOKEN: "Token Expired",
   REFRESH_TOKEN_EXPRIED: "Authentication expired",
@@ -67,3 +69,4 @@ export const CategoryHeaders = [
 ];
 
 export const ADS = ["Ad1", "Ad2"];
+

@@ -32,10 +32,22 @@ exports.createOrder = async (req, res) => {
 // Get all orders (admin only)
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find()
+    const { limit, offset, status } = req.query
+
+    const filters = {};
+    if (status) {
+      filters.status = status;
+    }
+
+
+    const orders = await Order.find(filters)
       .populate("product", "_id name price")
-      .sort({ createdAt: -1 });
-    res.json(orders);
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .skip(offset)
+      .exec();
+    const total = await Order.countDocuments({ status });
+    res.json({ orders, total });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

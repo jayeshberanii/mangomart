@@ -5,13 +5,11 @@ import { OrderType } from "../types/product";
 export const getOrdersApi = async (
     limit?: number,
     offset?: number,
-    search?: string,
-    filter?: { [key: string]: string },
-    sorting?: { [key: string]: string }
+    status?: string,
 ) => {
     try {
         const response = await apiClient.get(ORDER_ROUTES.GET_ORDERS, {
-            params: { limit, offset, search, filter, sorting },
+            params: { limit, offset, status },
         });
         return response.data;
     } catch (error) {

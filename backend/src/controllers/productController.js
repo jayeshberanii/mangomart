@@ -14,8 +14,10 @@ exports.createProduct = async (req, res) => {
 // Get All Products
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ createdAt: -1 });
-    res.json(products);
+    const { page, limit } = req.query;
+    const total = await Product.countDocuments();
+    const products = await Product.find().sort({ createdAt: -1 }).skip((page - 1) * limit).limit(limit).exec();
+    res.json({ products, total });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

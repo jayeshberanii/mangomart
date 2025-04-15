@@ -23,7 +23,7 @@ import { CategoryHeaders } from "../../../constants/constant";
 import Pagination from "../Pagination";
 
 const Products = () => {
-  const [products, setProducts] = useState<ProductType[]>([]); 
+  const [products, setProducts] = useState<ProductType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const limit = 5; // Items per page
   const [totalProducts, setTotalProducts] = useState<number>(0);
@@ -44,9 +44,9 @@ const Products = () => {
     closeModal();
   };
   const getProducts = useCallback(async () => {
-    const response = await fetchProductsApi();
-    setProducts(response || []);
-    setTotalProducts(response?.total);
+    const response = await fetchProductsApi(currentPage, limit);
+    setProducts(response?.products || []);
+    setTotalProducts(response?.total ?? 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     fetchTrigger,
