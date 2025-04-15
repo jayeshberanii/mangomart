@@ -45,7 +45,7 @@ const Products = () => {
   };
   const getProducts = useCallback(async () => {
     const response = await fetchProductsApi();
-    setProducts(response);
+    setProducts(response || []);
     setTotalProducts(response?.total);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -132,7 +132,7 @@ const Products = () => {
 
                   {/* Table Body */}
                   <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                    {products?.map((product) => (
+                    {products?.length > 0 && products?.map((product) => (
                       <TableRow key={product?._id}>
                         <TableCell className="py-4 sm:px-6">
                           <div className="w-10 h-10 overflow-hidden">
