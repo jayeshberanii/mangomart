@@ -100,7 +100,6 @@ const Orders = () => {
 
     const onSubmitOrderHandler = async (data: OrderType) => {
         if (data?._id) {
-            console.log("Edit Order Successfully :::", data);
             try {
                 await updateOrderApi(data._id, data);
                 showToast("Order updated successfully", "success");
@@ -110,7 +109,6 @@ const Orders = () => {
             }
         } else {
             try {
-                console.log("Add Order Successfully :::", data);
                 await createOrderApi(data);
                 showToast("Order added successfully", "success");
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars

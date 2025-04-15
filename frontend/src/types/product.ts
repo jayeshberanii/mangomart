@@ -8,7 +8,7 @@ export interface ProductType {
 }
 
 export interface OrderType {
-    productId: string;
+    product: ProductType;
     quantity: number;
     customerName: string;
     address: string;

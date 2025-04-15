@@ -11,6 +11,8 @@ app.use(cors({
     origin: [
       "http://localhost:5174", 
       "http://localhost:5173",
+      "http://localhost:4173",
+      "http://localhost:4174",
       "http://69.62.84.37:5173",
       "http://69.62.84.37:5174",
       "http://69.62.84.37:4173",
@@ -21,7 +23,7 @@ app.use(cors({
       "http://admin.themangomart.in",
       "http://www.themangomart.in",
       "https://www.themangomart.in"
-    ], // Frontend origin (adjust as needed)
+    ],
     credentials: true,               // Allow cookies to be sent with requests
   }));
 app.use(express.json());

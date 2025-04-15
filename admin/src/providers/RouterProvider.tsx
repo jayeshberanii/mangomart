@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignInPage from "../pages/auth/SignInPage";
 import NotFoundPage from "../pages/not-found/NotFoundPage";
 import AdminLayout from "../layout/AdminLayout";
-// import Protected from "../components/global/Protected";
+import Protected from "../components/global/Protected";
 import { ROUTES } from "../constants/routes";
 import { lazy, Suspense } from "react";
 import Spinner from "../components/global/Spinner";
@@ -41,19 +41,18 @@ const Routing = () => {
           <Route
             path={ROUTES.ADMIN}
             element={
-              // <Protected>
+              <Protected>
               <AdminLayout />
-              // </Protected>
+              </Protected>
             }
           >
             <Route index element={<AdminDashboard />} />
             <Route path={ROUTES.SUB_ROUTES.PRODUCTS} element={<Products />} />
             {/* <Route path={ROUTES.SUB_ROUTES.CATEGORIES} element={<Categories />} /> */}
             <Route path={ROUTES.SUB_ROUTES.ORDERS} element={<Orders />} />
-          </Route>
-
-          {/* Profile Route */}
+                      {/* Profile Route */}
           <Route path={ROUTES.PROFILE} element={<Profile />} />
+          </Route>
 
           {/* Catch-all Route for undefined paths (404 Page) */}
           <Route path="*" element={<NotFoundPage />} />

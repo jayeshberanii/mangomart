@@ -23,7 +23,7 @@ import { CategoryHeaders } from "../../../constants/constant";
 import Pagination from "../Pagination";
 
 const Products = () => {
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const [products, setProducts] = useState<ProductType[]>([]); 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const limit = 5; // Items per page
   const [totalProducts, setTotalProducts] = useState<number>(0);
@@ -84,8 +84,6 @@ const Products = () => {
     closeDeleteModalHandler();
   };
   const onSubmitProductHandler = async (data: ProductType) => {
-    console.log(data);
-
     if (data._id) await editProductApi(data._id, data);
     else await addProductApi(data);
     setCurrentPage(1);

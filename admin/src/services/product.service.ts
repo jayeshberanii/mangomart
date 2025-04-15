@@ -6,7 +6,6 @@ import { ProductType } from "../types/product";
 export const fetchProductsApi = async (
 ) => {
   try {
- 
     const response = await apiClient.get(PRODUCT_ROUTES.GET_PRODUCTS);
     return response.data;
   } catch (error: unknown) {

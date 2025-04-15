@@ -20,7 +20,7 @@ const OrderMangoesForm: React.FC<ProductModalProps> = ({ product, isOpen, onClos
 
   const onSubmit = async (data) => {
     try {
-      await orderService.create({...data, productId: product?._id});
+      await orderService.create({...data, product});
       onClose();
       alert("Order created successfully!");
     } catch (error) {

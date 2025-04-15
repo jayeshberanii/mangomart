@@ -6,7 +6,7 @@ exports.createOrder = async (req, res) => {
   try {
     const { product: newProduct, quantity, customerName, address, phone, email } = req.body;
 
-    const product = await Product.findById(newProduct._id);
+    const product = await Product.findById(newProduct?._id);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
     const totalAmount = product.price * quantity;
