@@ -15,6 +15,12 @@ app.use(cors({
       "http://69.62.84.37:5174",
       "http://69.62.84.37:4173",
       "http://69.62.84.37:4174",
+      "http://themangomart.in",
+      "https://themangomart.in",
+      "https://admin.themangomart.in",
+      "http://admin.themangomart.in",
+      "http://www.themangomart.in",
+      "https://www.themangomart.in"
     ], // Frontend origin (adjust as needed)
     credentials: true,               // Allow cookies to be sent with requests
   }));
