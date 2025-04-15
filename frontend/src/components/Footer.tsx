@@ -61,16 +61,16 @@ const Footer = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 col-md-12">
-                            <p>Copyrights &copy; 2023 - <a href="#">Nikunj Sorathiya</a>, All Rights Reserved.<br />
+                            <p>Copyrights &copy; 2025 - <a href="mailto:jayeshberanii@gmail">Jayesh Berani</a>, All Rights Reserved.<br />
                             </p>
                         </div>
                         <div className="col-lg-6 text-right col-md-12">
                             <div className="social-icons">
                                 <ul>
 
-                                    <li><a href="https://instagram.com/nikunj_sorathiya13?igshid=ZDdkNTZiNTM="
+                                    <li><a href="https://instagram.com/jayeshberanii?igshid=ZDdkNTZiNTM="
                                         target="_blank"><i className="fab fa-instagram"></i></a></li>
-                                    <li><a href="https://www.linkedin.com/in/nikunj-sorathiya-61536a17a" target="_blank"><i
+                                    <li><a href="https://www.linkedin.com/in/jayesh-berani" target="_blank"><i
                                         className="fab fa-linkedin"></i></a></li>
 
                                 </ul>

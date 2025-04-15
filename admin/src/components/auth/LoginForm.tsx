@@ -35,9 +35,9 @@ const LoginForm = () => {
       setIsLoading(true);
       const saveUser = await loginUser(data);
       showToast(saveUser?.message, "success");
-      navigate(ROUTES.HOME);
       const userDetails = await getUserDetails();
       setUser(userDetails);
+      navigate(ROUTES.HOME);
     } finally {
       setIsLoading(false);
     }
@@ -67,11 +67,10 @@ const LoginForm = () => {
               message: "Invalid email format",
             },
           })}
-          className={`w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 ${
-            errors.email
+          className={`w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 ${errors.email
               ? "border-red-500 focus:ring-transparent"
               : "focus:ring-blue-500"
-          }`}
+            }`}
         />
         {errors.email && (
           <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
@@ -79,47 +78,46 @@ const LoginForm = () => {
       </div>
 
       {/* Password Input */}
-        <div className="mt-4">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 4,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              className={`w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 ${
-                errors.password
-                  ? "border-red-500 focus:ring-transparent"
-                  : "focus:ring-blue-500"
+      <div className="mt-4">
+        <label
+          htmlFor="password"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Password
+        </label>
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 4,
+                message: "Password must be at least 6 characters",
+              },
+            })}
+            className={`w-full px-4 py-2 mt-2 text-gray-700 bg-gray-100 border rounded-lg focus:outline-none focus:ring-2 ${errors.password
+                ? "border-red-500 focus:ring-transparent"
+                : "focus:ring-blue-500"
               }`}
+          />
+          {!showPassword ? (
+            <EyeIcon
+              onClick={() => setShowPassword(!showPassword)}
+              className="fill-gray-500 dark:fill-gray-400 size-5 absolute z-30 cursor-pointer right-4 top-5/12"
             />
-            {!showPassword ? (
-              <EyeIcon
-                onClick={() => setShowPassword(!showPassword)}
-                className="fill-gray-500 dark:fill-gray-400 size-5 absolute z-30 cursor-pointer right-4 top-5/12"
-              />
-            ) : (
-              <EyeCloseIcon
-                onClick={() => setShowPassword(!showPassword)}
-                className="fill-gray-500 dark:fill-gray-400 size-5 absolute z-30 cursor-pointer right-4 top-5/12"
-              />
-            )}
-          </div>
-          {errors.password && (
-            <p className="mt-1 text-sm text-red-500">
-              {errors.password.message}
-            </p>
+          ) : (
+            <EyeCloseIcon
+              onClick={() => setShowPassword(!showPassword)}
+              className="fill-gray-500 dark:fill-gray-400 size-5 absolute z-30 cursor-pointer right-4 top-5/12"
+            />
           )}
         </div>
+        {errors.password && (
+          <p className="mt-1 text-sm text-red-500">
+            {errors.password.message}
+          </p>
+        )}
+      </div>
 
       {/* Submit Button */}
       <CommonButton className="mt-6" type="submit" disabled={isLoading}>
