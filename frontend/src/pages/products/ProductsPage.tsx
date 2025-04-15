@@ -46,7 +46,7 @@ const ProductsPage: React.FC = () => {
   };
 
   useEffect(()=>{
-    productService.getAll().then(res => setProducts(res?.data as ProductType[]));
+    productService.getAll().then(res => setProducts(res?.data?.products as ProductType[]));
   }, [])
 
   return (
