@@ -99,7 +99,7 @@ const Orders = () => {
     };
 
     const onSubmitOrderHandler = async (data: OrderType) => {
-        if (data._id) {
+        if (data?._id) {
             console.log("Edit Order Successfully :::", data);
             try {
                 await updateOrderApi(data._id, data);
