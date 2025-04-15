@@ -4,7 +4,7 @@ const Product = require("../models/Product");
 // Create a new order (open to public)
 exports.createOrder = async (req, res) => {
   try {
-    const { product: newProduct, quantity, customerName, address, phone, email } = req.body;
+    const { product: newProduct, quantity, customerName, address, phone, email, status } = req.body;
 
     const product = await Product.findById(newProduct?._id);
     if (!product) return res.status(404).json({ message: "Product not found" });
@@ -18,7 +18,8 @@ exports.createOrder = async (req, res) => {
       address,
       phone,
       email,
-      totalAmount
+      totalAmount,
+      status
     });
 
     await order.save();
